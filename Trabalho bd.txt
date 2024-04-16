@@ -1,0 +1,186 @@
+CREATE DATABASE FAPAM;
+USE FAPAM;
+
+CREATE TABLE matricula(
+id int AUTO_INCREMENT,
+data date,
+situação varchar(150) NOT null,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE turma(
+id int AUTO_INCREMENT,
+horarioentrada datetime,
+horariosaida datetime,
+quantidade int NOT null,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE curso(
+id int AUTO_INCREMENT,
+nome varchar(50) not null,
+datainicio date  NOT null,
+datafinal date  NOT null,
+PRIMARY KEY(id)
+);
+
+ALTER TABLE curso
+ADD idpainel int;
+ALTER TABLE curso
+ADD FOREIGN KEY(idpainel) REFERENCES painel(id);
+
+CREATE TABLE disciplinas(
+id int AUTO_INCREMENT,
+nome varchar(50) not null,
+datainicio date  NOT null,
+datafinal date  NOT null,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE UF(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE Cidade(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+iduf int,
+PRIMARY KEY(id),
+FOREIGN KEY(iduf) REFERENCES uf(id)
+);
+
+CREATE TABLE Bairro(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+idbairro int,
+PRIMARY KEY(id),
+FOREIGN KEY(idbairro) REFERENCES cidade(id)
+);
+
+CREATE TABLE Rua(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+idrua int,
+PRIMARY KEY(id),
+FOREIGN KEY(idrua) REFERENCES bairro(id)
+);
+
+CREATE TABLE Endereço(
+id int AUTO_INCREMENT,
+numero int(4) NOT null,
+complemento varchar(10)NOT null,
+idendereco int,
+PRIMARY KEY(id),
+FOREIGN KEY(idendereco) REFERENCES rua(id)
+);
+
+CREATE TABLE pessoa(
+id int AUTO_INCREMENT,
+nome varchar(50) NOT null,
+cpf int(11),
+rg int(8),
+datanascmento date,
+emal varchar(100) NOT null,
+idpessoa int,
+PRIMARY KEY(id),
+FOREIGN KEY(idpessoa) REFERENCES endereco(id)
+);
+
+CREATE TABLE telefone(
+id int AUTO_INCREMENT,
+tipo varchar(30) NOT null,
+numero int(11),
+idtelefone int,
+PRIMARY KEY(id),
+FOREIGN KEY(idtelefone) REFERENCES pessoa(id)
+);
+
+CREATE TABLE usuario(
+id int AUTO_INCREMENT,
+codigoacesso int(5) NOT null,
+senha int(11),
+idusuario int,
+PRIMARY KEY(id),
+FOREIGN KEY(idusuario) REFERENCES pessoa(id)
+);
+
+CREATE TABLE professor(
+id int AUTO_INCREMENT,
+nome varchar(50) NOT null UNIQUE,
+formacao varchar(150) NOT null,
+idprofessor int,
+PRIMARY KEY(id),
+FOREIGN KEY(idprofessor) REFERENCES pessoa(id)
+);
+
+CREATE TABLE aluno(
+id int AUTO_INCREMENT,
+nome varchar(50) NOT null UNIQUE,
+ra int(5) NOT null,
+idaluno int,
+PRIMARY KEY(id),
+FOREIGN KEY(idaluno) REFERENCES pessoa(id),
+FOREIGN KEY(idaluno) REFERENCES matricula(id)
+);
+
+CREATE TABLE historico(
+id int AUTO_INCREMENT,
+notas int(100) NOT null,
+frequencia int(100) NOT null UNIQUE,
+idhistorico int,
+PRIMARY KEY(id),
+FOREIGN KEY(idhistorico) REFERENCES disciplinas(id),
+FOREIGN KEY(idhistorico) REFERENCES aluno(id)
+);
+
+CREATE TABLE painel(
+id int AUTO_INCREMENT,
+dataeventos timestamp,
+avisos varchar(200),
+PRIMARY KEY(id)
+);
+
+CREATE TABLE carteiradeestudante(
+id int AUTO_INCREMENT,
+nome varchar(50) NOT null UNIQUE,
+ra int(5) NOT null,
+rg int(11),
+datavalidade date,
+nomedocurso varchar(20),
+PRIMARY KEY(id)
+);
+
+CREATE TABLE turmaprofessor(
+idturma int,
+idprofessor int,
+PRIMARY KEY(idturma,idprofessor),
+FOREIGN KEY(idturma) REFERENCES turma(id),
+FOREIGN KEY(idprofessor) REFERENCES professor(id)
+);
+
+CREATE TABLE turmamatricula(
+idturma int,
+idmatricula int,
+PRIMARY KEY(idturma,idmatricula),
+FOREIGN KEY(idturma) REFERENCES turma(id),
+FOREIGN KEY(idmatricula) REFERENCES matricula(id)
+);
+
+CREATE TABLE turmacurso(
+idturma int,
+idcurso int,
+PRIMARY KEY(idturma,idcurso),
+FOREIGN KEY(idturma) REFERENCES turma(id),
+FOREIGN KEY(idcurso) REFERENCES curso(id)
+);
+
+CREATE TABLE cursodisciplinas(
+idcurso int,
+iddisciplinas int,
+PRIMARY KEY(idcurso,iddisciplinas),
+FOREIGN KEY(idcurso) REFERENCES curso(id),
+FOREIGN KEY(iddisciplinas) REFERENCES disciplinas(id)
+);
+

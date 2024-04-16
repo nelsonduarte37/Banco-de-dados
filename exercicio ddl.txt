@@ -1,0 +1,55 @@
+CREATE DATABASE vendas
+USE vendas
+
+CREATE TABLE produto(
+id int AUTO_INCREMENT,
+nome varchar not null (20),
+qtd_produto integer,
+descrição varchar(20) NOT null UNIQUE,
+precoproduto float,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE notafiscal(
+id int AUTO_INCREMENT,
+dataSaida_NF timestamp,
+dataEntrada_NF timestamp,
+valornf float,
+PRIMARY KEY(id)
+);
+
+create table itens(
+cod_itens int not unique,
+qtd_itens int,
+idProduto int,
+idNota_fiscal int,
+primary key(idProduto, idNota-fiscal),
+foreign key (IdProduto) references produto(id),
+foreign key (idNota_fiscal) references Nota_fiscal(id)
+);
+
+ALTER TABLE produto MODIFY descricao produto varchar(50);
+
+ALTER TABLE notafiscal  ADD ICMS  float ;
+
+ALTER TABLE Produto ADD Peso float;
+
+ALTER TABLE Nota_fiscal DROP COLUMN ICMS;
+
+RENAME TABLE itens TO controle;
+
+DESCRIBE produto;
+
+DESCRIBE controle;
+DROP TABLE controle;
+
+create table itens(
+num_itens int,
+qtd_itens int not null,
+idProduto int,
+idNota_fiscal int,
+primary key(idProduto, idNota-fiscal),
+foreign key (IdProduto) references produto(id),
+foreign key (idNota_fiscal) references Nota_fiscal(id)
+);
+

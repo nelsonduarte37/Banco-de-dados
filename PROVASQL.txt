@@ -1,0 +1,61 @@
+CREATE DATABASE PROVASQL;
+USE PROVASQL;
+
+create table montadora(
+idmontadora int auto_increment,
+nome varchar (20) not null,
+primary key (idmontadora)
+);
+
+create table carro(
+idcarro int auto_increment,
+modelo varchar(20),
+versao varchar(15),
+combustivel varchar(10),
+cilindrada int (20),
+idmontadora int,
+primary key (idcarro),
+foreign key (idmontadora) references montadora(idmontadora)
+);
+
+4
+INSERT INTO montadora(nome) VALUES('Fiat');
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("1","Palio","Fire","Flex","1000","1");
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("2","Palio","1.8R","Flex","1800","1");
+
+5
+INSERT INTO montadora(nome) VALUES('Volkswagen');
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("3","Gol","Trend","Flex","1000","2");
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("4","Gol","Power","Flex","1600","2");
+
+6
+INSERT INTO montadora(nome) VALUES('Chevrolet');
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("5","Vectra","Elegance","Flex","2000","3");
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("6","Vectra","Elite","Flex","2000","3");
+
+7
+INSERT INTO montadora(nome) VALUES('Ford');
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("7","Fusion","SEL2.5","Gasolina","2500","4");
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("8","Fusion","SELV6","Gasolina","3000","4");
+
+8
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("9","Punto","Sporting","Flex","1800","1");
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("10","Punto","T-Jet","Gasolina","1400","1");
+
+9
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("11","Polo","Confortline","Flex","1600","2");
+INSERT INTO carro(idcarro,modelo,versao,combustivel,cilindrada,idmontadora) VALUES("12","Polo","GT","Flex","2000","2");
+
+10
+select carro.*, montadora.nome from carro, montadora where carro.idmontadora = montadora.idmontadora;
+
+11
+select * from carro where idmontadora = 1
+
+12
+select * from carro where cilindrada>="1000" && cilindrada<="2000";
+
+13
+select * from carro where combustivel="gasolina";
+
+14

@@ -1,0 +1,79 @@
+CREATE DATABASE provaquestao4
+use provaquestao4
+
+CREATE TABLE UF(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE Cidade(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES uf(id)
+);
+
+CREATE TABLE Bairro(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES cidade(id)
+);
+
+CREATE TABLE Rua(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES bairro(id)
+);
+
+CREATE TABLE Endereço(
+id int AUTO_INCREMENT,
+numero int(4) NOT null,
+complemento varchar(10)NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES rua(id)
+);
+
+create table medico(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id)
+);
+
+create table paciente(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES endereço(id)
+);
+
+create table prontuario(
+id int AUTO_INCREMENT,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES paciente(id)
+);
+
+create table exame(
+id int AUTO_INCREMENT,
+tipo varchar(10) NOT null,
+data int(6),
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES paciente(id),
+FOREIGN KEY(id) REFERENCES prontuario(id)
+);
+
+create table avaliação(
+id int AUTO_INCREMENT,
+data int(6),
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES paciente(id),
+FOREIGN KEY(id) REFERENCES exame(id)
+);
+
+create table medicoavaliação(
+id int AUTO_INCREMENT,
+FOREIGN KEY(id) REFERENCES medico(id),
+FOREIGN KEY(id) REFERENCES avaliação(id)
+);

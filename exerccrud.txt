@@ -1,0 +1,58 @@
+CREATE DATABASE crud;
+USE crud;
+
+CREATE TABLE departamento(
+codigo int AUTO_INCREMENT,
+nomedepartamento varchar(8) NOT null,
+PRIMARY KEY(codigo)
+);
+
+CREATE TABLE funcionario(
+codigo int AUTO_INCREMENT,
+nome varchar(8) NOT null,
+departamento int(5),
+salario varchar(9),
+codigofuncionario int,
+PRIMARY KEY(codigo),
+FOREIGN KEY(codigofuncionario) REFERENCES departamento(codigo)
+);
+
+INSERT INTO departamento (nomedepartamento) VALUES ('Contabilidade');
+INSERT INTO departamento (nomedepartamento) VALUES ('Administracao');
+INSERT INTO departamento (nomedepartamento) VALUES ('Informatica');
+INSERT INTO departamento (nomedepartamento) VALUES ('RH');
+
+INSERT INTO funcionario (nome) VALUES ('Jose');
+INSERT INTO funcionario (nome) VALUES ('Maria');
+INSERT INTO funcionario (nome) VALUES ('Joao');
+INSERT INTO funcionario (nome) VALUES ('Silvia');
+INSERT INTO funcionario (nome) VALUES ('Joao');
+
+
+INSERT INTO funcionario set departamento="1" where codigo=1;
+INSERT INTO funcionario set departamento="2" where codigo=3;
+INSERT INTO funcionario set departamento="3" where codigo=4;
+INSERT INTO funcionario set departamento="1" where codigo=5;
+
+
+INSERT INTO funcionario set salario="1.000,00" where codigo=1;
+INSERT INTO funcionario set salario="2.000,00" where codigo=2;
+INSERT INTO funcionario set salario="1.500,00" where codigo=3;
+INSERT INTO funcionario set salario="1.500,00" where codigo=4;
+INSERT INTO funcionario set salario="1.500,00" where codigo=5;
+
+
+a)update departamento set nomedepartamento="Computação" where nomedepartamento="Informática";
+b)update funcionario set salario="1.200,00" where codigo=1;
+c)DELETE FROM departamento WHERE nomedepartamento="RH";
+d)INSERT INTO funcionario () VALUES () ;
+Inseriu uma sexta linha sem nenhum campo cadastrado, pois nao declarou valor
+e)update funcionario set nome="Joao Roberto" where codigo=3;
+f)update funcionario set nome="Silvia" where departamento='1';
+g)Não ocorre nada pois o rh foi deletado
+h)DELETE FROM departamento WHERE nomedepartamento="Contabilidade";
+nao executa o comando da erro,nao e apagado.
+i)delete FROM funcionario WHERE salario>'1.800,00';
+j)select nomedepartamento from departamento order by nomedepartamento;
+k)SELECT nome FROM funcionario WHERE nome like 'J%';
+l)select * from  departamento INNER JOIN funcionario ON departamento.codigo = funcionario.codigo GROUP BY nome;

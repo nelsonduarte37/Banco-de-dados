@@ -1,0 +1,96 @@
+CREATE DATABASE provaquestao3
+use provaquestao3
+
+CREATE TABLE UF(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE Cidade(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES uf(id)
+);
+
+CREATE TABLE Bairro(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES cidade(id)
+);
+
+CREATE TABLE Rua(
+id int AUTO_INCREMENT,
+nome varchar(20) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES bairro(id)
+);
+
+CREATE TABLE Endereço(
+id int AUTO_INCREMENT,
+numero int(4) NOT null,
+complemento varchar(10)NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES rua(id)
+);
+
+CREATE TABLE Fabricante(
+id int AUTO_INCREMENT,
+marca varchar(30) NOT null,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE Modelo(
+id int AUTO_INCREMENT,
+descricao varchar(50) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES fabricante(id)
+);
+
+CREATE TABLE Clientes(
+id int AUTO_INCREMENT,
+nome varchar(30) NOT null,
+cpf int(11),
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES endereço(id)
+);
+
+CREATE TABLE Telefones(
+id int AUTO_INCREMENT,
+numero int(11) NOT null UNIQUE,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES clientes(id)
+);
+
+CREATE TABLE Carros(
+id int AUTO_INCREMENT,
+renavan int(11) NOT null UNIQUE,
+ano int(4) NOT null,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES clientes(id),
+FOREIGN KEY(id) REFERENCES uf(id),
+FOREIGN KEY(id) REFERENCES modelo(id)
+);
+
+create table acidente(
+id int AUTO_INCREMENT,
+DataOcorrido date,
+BO int,
+PRIMARY KEY(id)
+);
+
+create table acidentecarros(
+id int AUTO_INCREMENT,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES acidente(id),
+FOREIGN KEY(id) REFERENCES carros(id)
+);
+
+create table carrosclientes(
+id int AUTO_INCREMENT,
+PRIMARY KEY(id),
+FOREIGN KEY(id) REFERENCES carros(id),
+FOREIGN KEY(id) REFERENCES clientes(id)
+);

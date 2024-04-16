@@ -1,0 +1,60 @@
+CREATE DATABASE estacionamento;
+
+1
+SELECT cliente.nome, veiculo.placa 
+FROM cliente JOIN veiculo 
+ON cliente.cpf = veiculo.Cliente_cpf;
+
+2
+SELECT cpf, nome 
+FROM cliente INNER JOIN veiculo 
+ON cliente.cpf = veiculo.Cliente_cpf 
+WHERE veiculo.placa = "JJJ-2020";
+
+3
+SELECT placa, cor 
+FROM veiculo INNER JOIN estaciona 
+ON veiculo.placa = estaciona.Veiculo_placa 
+WHERE estaciona.cod = "1";
+
+ALTER TABLE veiculo 
+ADD ano_veiculo int(4);
+
+UPDATE `veiculo` SET `ano_veiculo` = '2002' WHERE `veiculo`.`placa` = 'FEJ-2525';
+UPDATE `veiculo` SET `ano_veiculo` = '2009' WHERE `veiculo`.`placa` = 'JEG-1010';
+UPDATE `veiculo` SET `ano_veiculo` = '2017' WHERE `veiculo`.`placa` = 'JEJ-5060';
+UPDATE `veiculo` SET `ano_veiculo` = '2010' WHERE `veiculo`.`placa` = 'JEX-1515';
+UPDATE `veiculo` SET `ano_veiculo` = '2005' WHERE `veiculo`.`placa` = 'JJF-3030';
+UPDATE `veiculo` SET `ano_veiculo` = '2020' WHERE `veiculo`.`placa` = 'JJJ-2020';
+UPDATE `veiculo` SET `ano_veiculo` = '2019' WHERE `veiculo`.`placa` = 'LUC-1010';
+
+4
+SELECT ano_veiculo, placa 
+FROM veiculo JOIN estaciona 
+ON veiculo.placa = estaciona.Veiculo_placa 
+WHERE estaciona.cod='1'
+
+5
+SELECT placa, ano_veiculo, Desc_2 
+FROM veiculo JOIN modelo 
+ON veiculo.Modelo_codMod = modelo.codMod 
+WHERE veiculo.ano_veiculo= '2010'
+
+6
+SELECT ender, dtEntrada, dtSaida 
+FROM veiculo INNER JOIN patio INNER JOIN estaciona 
+ON veiculo.placa = estaciona.Veiculo_placa 
+AND patio.num = estaciona.Patio_num 
+WHERE veiculo.placa= "JEG-1010";
+
+7
+Erro, não possui carro nesta cor"verde"
+
+8
+SELECT nome
+FROM cliente INNER JOIN veiculo INNER JOIN modelo
+ON cliente.cpf = veiculo.Cliente_cpf 
+AND modelo.codMod = veiculo.Modelo_codMod
+WHERE modelo.codMod = '1';
+
+9
